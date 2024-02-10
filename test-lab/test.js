@@ -13,13 +13,11 @@ function randomNum() {
 }
 
 function mathFunction(arr) {
-  let smallestNum = arr;
   if (arr == null || arr.length === 0) {
-    smallestNum = 0;
+    return 0;
   } else {
-    smallestNum = Math.min(...arr);
+    return Math.min(...arr);
   }
-  return smallestNum;
 }
 
 function forFunction(arr) {
