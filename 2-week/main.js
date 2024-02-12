@@ -10,7 +10,17 @@ let taskInput = document.getElementById("task-input");
 let addButton = document.getElementById("add-button");
 let task = document.getElementById("task");
 let taskList = [];
+let notDoneButton = document.getElementById("not-done-button");
+let allButton = document.getElementById("All-button");
+let doneButton = document.getElementById("done-button");
+let resultHTML = "";
+let doneToggle = false;
+let notDoneToggle = false;
+let underLine = document.getElementById("under-line");
 addButton.addEventListener("click", addTask);
+notDoneButton.addEventListener("click", notDoneToggleButton);
+allButton.addEventListener("click", allToggleButton);
+doneButton.addEventListener("click", doneToggleButton);
 
 function addTask() {
   let task = {
@@ -20,6 +30,7 @@ function addTask() {
   };
   taskList.push(task);
   console.log(taskList);
+  allToggleButton();
   render();
 }
 
@@ -28,24 +39,46 @@ function uniqueIdGenerator() {
 }
 
 function render() {
-  let resultHTML = "";
+  resultHTML = "";
   for (i = 0; i < taskList.length; i++) {
-    if (taskList[i].isComplete == true) {
-      resultHTML += `<div class="task" id="task">
-        <div class="task-done">${taskList[i].taskContent}</div>
+    if (doneToggle == false && notDoneToggle == false) {
+      if (taskList[i].isComplete == true) {
+        resultHTML += `<div class="task" id="task">
+            <div class="task-done">${taskList[i].taskContent}</div>
+            <div>
+              <button onclick="toggleComplete('${taskList[i].id}')">check</button>
+              <button onclick="toggleDelete('${taskList[i].id}')" >Delete</button>
+            </div>
+            </div>`;
+      } else {
+        resultHTML += `<div class="task" id="task">
+        <div>${taskList[i].taskContent}</div>
         <div>
           <button onclick="toggleComplete('${taskList[i].id}')">check</button>
-          <button onclick="toggleDelete('${taskList[i].id}')" >Delete</button>
+          <button onclick="toggleDelete('${taskList[i].id}')">Delete</button>
         </div>
         </div>`;
-    } else {
-      resultHTML += `<div class="task" id="task">
-    <div>${taskList[i].taskContent}</div>
-    <div>
-      <button onclick="toggleComplete('${taskList[i].id}')">check</button>
-      <button onclick="toggleDelete('${taskList[i].id}')">Delete</button>
-    </div>
-    </div>`;
+      }
+    } else if (doneToggle == true && notDoneToggle == false) {
+      if (taskList[i].isComplete == true) {
+        resultHTML += `<div class="task" id="task">
+                      <div class="task-done">${taskList[i].taskContent}</div>
+                      <div>
+                        <button onclick="toggleComplete('${taskList[i].id}')">check</button>
+                        <button onclick="toggleDelete('${taskList[i].id}')" >Delete</button>
+                      </div>
+                      </div>`;
+      }
+    } else if (doneToggle == false && notDoneToggle == true) {
+      if (taskList[i].isComplete == false) {
+        resultHTML += `<div class="task" id="task">
+              <div>${taskList[i].taskContent}</div>
+              <div>
+                <button onclick="toggleComplete('${taskList[i].id}')">check</button>
+                <button onclick="toggleDelete('${taskList[i].id}')">Delete</button>
+              </div>
+              </div>`;
+      }
     }
   }
 
@@ -70,4 +103,28 @@ function toggleDelete(id) {
       break;
     }
   }
+}
+
+function notDoneToggleButton() {
+  doneToggle = false;
+  notDoneToggle = true;
+  render();
+  underLine.style.left = "60px";
+  underLine.style.width = "75px";
+}
+
+function allToggleButton() {
+  doneToggle = false;
+  notDoneToggle = false;
+  render();
+  underLine.style.left = "0px";
+  underLine.style.width = "50px";
+}
+
+function doneToggleButton() {
+  doneToggle = true;
+  notDoneToggle = false;
+  render();
+  underLine.style.left = "160px";
+  underLine.style.width = "50px";
 }
