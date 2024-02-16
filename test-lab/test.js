@@ -22,11 +22,9 @@ function mathFunction(arr) {
 
 function forFunction(arr) {
   let smallestNum = arr[0];
-  for (i = 0; i < arr.length; i++) {
-    for (j = 0; j < arr.length; j++) {
-      if (smallestNum > arr[j]) {
-        smallestNum = arr[j];
-      }
+  for (j = 0; j < arr.length; j++) {
+    if (smallestNum > arr[j]) {
+      smallestNum = arr[j];
     }
   }
   return smallestNum;
