@@ -10,8 +10,6 @@ let names = [
   "Lloyd Blankfein",
 ];
 
-console.log(names[0].length);
-
 //map 문제
 // * 모든 이름을 대문자로 바꾸어서 출력하시오
 // * 성을제외한 이름만 출력하시오
@@ -109,7 +107,7 @@ console.log(names[0].length);
 
 // let data2 = names.some((item) => {
 //   let eachArray = item.split(" ");
-//   let result = eachArray.slice(1).join("").toLowerCase();
+//   let result = eachArray.pop().join("").toLowerCase();
 
 //   console.log(result);
 //   return result.includes("p");
